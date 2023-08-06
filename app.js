@@ -1,15 +1,7 @@
+require('dotenv').config();
 
-const http = require('http');
+const Server = require('./models/server');
 
+const server = new Server();
 
-const port = 1324;
-
-http.createServer((req, res) => {
-
-    res.write('Hello from the server!');
-    red.end();
-
-})
-.listen(port);
-
-console.log(`Server is listening on port ${port}`);
+server.listen();
