@@ -1,7 +1,12 @@
 
 const usersPost = (req, res) => {
+    
+    const { id, edad } = req.body
+    const body = { id, edad }
+
     res.json({
-        msg: 'post API - controller'
+        msg: 'post API - controller',
+        body
     });
 }
 
