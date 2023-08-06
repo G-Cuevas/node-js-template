@@ -12,15 +12,22 @@ const usersPost = (req, res) => {
 
 
 const usersGet = (req, res) => {
+    const { q, nombre = 'No name', apikey, page = 1, limit } = req.query
+    const params = { q, nombre, apikey, page, limit }
+
     res.json({
-        msg: 'get API - controller'
+        msg: 'get API - controller',
+        params
     });
 }
 
 
 const usersPatch = (req, res) => {
+    const { id } = req.params
+
     res.json({
-        msg: 'patch API - controller'
+        msg: 'patch API - controller',
+        id
     });
 }
 

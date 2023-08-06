@@ -10,7 +10,7 @@ router.post('/', usersPost);
 
 router.get('/', usersGet);
 
-router.patch('/', usersPatch);
+router.patch('/:id', usersPatch);
 
 router.delete('/', usersDelete);
 
