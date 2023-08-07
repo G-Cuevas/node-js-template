@@ -20,7 +20,7 @@ router.post('/', [
 
 
 router.get('/', [
-    validateJWT
+    // validateJWT
 ], usersGet);
 
 

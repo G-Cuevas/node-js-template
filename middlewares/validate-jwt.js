@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const { User } = require('../models');
 
 const validateJWT = async (req, res, next) => {
 
@@ -17,18 +17,18 @@ const validateJWT = async (req, res, next) => {
             token,
             process.env.SECRETORPRIVATEKEY
         );
-
+        
         const user = await User.findById(uid)
 
         if (!user) {
             return res.status(401).json({
-                msg: 'Invalid token'
+                msg: 'Invalid token - user does not exist in DB'
             });
         }
 
-        if (!user.state) {
+        if (!user.status) {
             return res.status(401).json({
-                msg: 'Invalid token'
+                msg: 'Invalid token - user state: false'
             });
         }
 
@@ -39,7 +39,7 @@ const validateJWT = async (req, res, next) => {
     } catch (error) {
 
         return res.status(401).json({
-            msg: 'Invalid token'
+            msg: 'Invalid token - catch'
         });
 
     }

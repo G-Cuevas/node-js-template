@@ -1,7 +1,7 @@
 const bcryptjs = require('bcryptjs')
 
-const User = require('../models/user')
 const { generateJWT } = require('../helpers/generateJWT')
+const { User } = require('../models')
 
 
 const authPost = async (req, res) => {
@@ -16,7 +16,7 @@ const authPost = async (req, res) => {
         })
     }
 
-    const token = await generateJWT(user.id);
+    const token = await generateJWT(user._id);
 
 
     res.json({

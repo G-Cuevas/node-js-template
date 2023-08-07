@@ -1,5 +1,5 @@
-const User = require('../models/user')
 const bcryptjs = require('bcryptjs')
+const { User } = require('../models')
 
 const usersPost = async (req, res) => {
 
@@ -25,25 +25,23 @@ const usersGet = async (req, res) => {
     const { limit = 5, page = 1 } = req.query
     const query = { state: true }
 
-    const user = req.user;
+    // const user = req.user;
     // const users = await User.find( query )
     //     .skip(Number(page - 1) * Number(limit))
     //     .limit(Number(limit))
-    
+
     // const total = await User.countDocuments( query )
 
-    const [ total, users ] = await Promise.all([
-        User.countDocuments( query ),
-        User.find( query )
+    const [total, data] = await Promise.all([
+        User.countDocuments(query),
+        User.find(query)
             .skip(Number(page - 1) * Number(limit))
             .limit(Number(limit))
     ])
 
     res.json({
-        msg: 'get API - controller',
-        user,
         total,
-        users,
+        data,
     });
 }
 
@@ -59,21 +57,16 @@ const usersPatch = async (req, res) => {
 
     const user = await User.findByIdAndUpdate(id, rest)
 
-    res.json({
-        msg: 'patch API - controller',
-        user
-    });
+    res.json(user);
 }
 
 
-const usersDelete = (req, res) => {
+const usersDelete = async (req, res) => {
     const { id } = req.params
 
-    User.findByIdAndUpdate(id, { state: false })
-        .then( user => {
-            res.json({ user })
-        })
+    const user = await User.findByIdAndUpdate(id, { status: false })
 
+    res.json(user)
 }
 
 module.exports = {
